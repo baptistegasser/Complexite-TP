@@ -15,6 +15,10 @@ public class IterativFibonacci {
     public IterativFibonacci(int maxIndice) {
         F0 = new BigInteger("0");
         F1 = new BigInteger("1");
+        if (maxIndice < 2) {
+            maxIndice = 2;
+            System.out.println("Vous avez indiqué un indice égale < 2. Les valeurs pour F0 et F1 n'étant pas calculées, les valeurs jusqu'à F2 ont été affichés");
+        }
         this.maxIndice = maxIndice;
     }
 
@@ -31,12 +35,17 @@ public class IterativFibonacci {
     }
 
     public static void main (String[] args) {
-        IterativFibonacci iterativFibonacci = new IterativFibonacci(1000);
+        long lStartTime = System.nanoTime();
+        IterativFibonacci iterativFibonacci = new IterativFibonacci(20000);
         ArrayList<BigInteger> result = iterativFibonacci.getFibonacci();
         int i = 0;
-        for (BigInteger value : result) {
+       /* for (BigInteger value : result) {
             System.out.println("F" + i + " = " + value + "\n");
             i++;
-        }
+        }*/
+        System.out.println(result.get(20000));
+        long lEndTime = System.nanoTime();
+        long time = lEndTime - lStartTime;
+        System.out.println("Temps d'execution : " + time/1000000 + " ms");
     }
 }
