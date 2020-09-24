@@ -35,15 +35,17 @@ public class IterativFibonacci {
     }
 
     public static void main (String[] args) {
+        int maxIndice = 15500;
         long lStartTime = System.nanoTime();
-        IterativFibonacci iterativFibonacci = new IterativFibonacci(20000);
+        IterativFibonacci iterativFibonacci = new IterativFibonacci(maxIndice);
         ArrayList<BigInteger> result = iterativFibonacci.getFibonacci();
         int i = 0;
+        // Affichage de toutes les valeurs si nécessaire
        /* for (BigInteger value : result) {
             System.out.println("F" + i + " = " + value + "\n");
             i++;
-        }*/
-        System.out.println(result.get(20000));
+        } */
+        System.out.println(result.get(maxIndice));
         long lEndTime = System.nanoTime();
         long time = lEndTime - lStartTime;
         System.out.println("Temps d'execution : " + time/1000000 + " ms");
