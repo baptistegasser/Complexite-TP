@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.univ.complexite</groupId>
+    <artifactId>Complexite-TP</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <inceptionYear>2020</inceptionYear>
+    <url>https://github.com/baptistegasser/Complexite-TP</url>
+    <description>
+        TPs de complexité du Master 1.
+    </description>
+
+    <developers>
+        <developer>
+            <id>baptiste-arnoulet</id>
+            <name>Baptiste ARNOULET</name>
+            <roles>
+                <role>Developer</role>
+                <role>Tester</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>luc-bobo2</id>
+            <name>Luc BOBO</name>
+            <roles>
+                <role>Developer</role>
+                <role>Tester</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>baptistegasser</id>
+            <name>Baptiste GASSER</name>
+            <roles>
+                <role>Developer</role>
+                <role>Tester</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/baptistegasser/Complexite-TP/issues</url>
+    </issueManagement>
+
+    <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    
+</project>
