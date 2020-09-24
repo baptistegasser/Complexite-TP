@@ -14,9 +14,13 @@ public class App {
 
         Graph graph = new Graph(matriceTest);
 
-        int[] zoneAChercher = new int[]{1};
-
         graph.show();
+
+        System.out.println("nbEdge : " + graph.getNbEdge(2-1));
+
+        graph.zoneVideMaximal();
+
+        int[] zoneAChercher = new int[]{1};
 
         if (graph.zoneVide(zoneAChercher)) {
             System.out.println(Arrays.toString(zoneAChercher) + " : Zone vide");

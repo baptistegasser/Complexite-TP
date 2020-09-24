@@ -1,11 +1,40 @@
 package exercice2;
 
+import java.nio.charset.IllegalCharsetNameException;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Graph {
     int[][] matrice;
 
     public Graph(int[][] matrice) {
         this.matrice = matrice;
     }
+
+    public void zoneVideMaximal() {
+        ArrayList<Integer> listTrie = triSommetByNbedge();
+
+        ArrayList<Boolean> listVisited = new ArrayList<>();
+    }
+
+
+    // Retourne la liste de sommet triè en fonction du nombre de voisin décroissant
+    public ArrayList<Integer> triSommetByNbedge() {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int i = 0; i<matrice.length;i++) {
+            m.put(i,getNbEdge(i));
+        }
+        Map<Integer, Integer> result = m.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        return new ArrayList<>(result.values());
+    }
+
 
     public boolean zoneVide(int[] listSommet) {
         int nbTour = 1;
@@ -28,6 +57,22 @@ public class Graph {
 
     public boolean haveEdge(int i, int j) {
         return matrice[i][j] == 1;
+    }
+
+    public ArrayList<Integer> getVoisin(int sommet) {
+        ArrayList<Integer> listVoisin = new ArrayList<>();
+        for (int i =0; i<matrice.length; i++) {
+            if (matrice[i][sommet] == 1) listVoisin.add(i);
+        }
+        return listVoisin;
+    }
+
+    public int getNbEdge(int sommet) {
+        int nbEdge = 0;
+        for (int i = 0; i<matrice.length;i++) {
+            nbEdge += matrice[i][sommet];
+        }
+        return nbEdge;
     }
 
     public void show() {
