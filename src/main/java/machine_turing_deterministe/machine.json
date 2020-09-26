@@ -1,0 +1,43 @@
+{
+  "states": [
+    "S",
+    "Pair",
+    "Impair"
+  ],
+  "initialState": "S",
+  "rules": [
+    {
+      "state": "S",
+      "read": "0",
+      "write": "0",
+      "nextState": "Pair",
+      "moveDir": "RIGHT"
+    },
+    {
+      "state": "S",
+      "read": "1",
+      "write": "1",
+      "nextState": "Impair",
+      "moveDir": "RIGHT"
+    },
+    {
+      "state": "Pair",
+      "read": "1",
+      "write": "1",
+      "nextState": "Impair",
+      "moveDir": "RIGHT"
+    },
+    {
+      "state": "Impair",
+      "read": "0",
+      "write": "0",
+      "nextState": "Pair",
+      "moveDir": "RIGHT"
+    }
+  ],
+  "blankWord": " ",
+  "alphabet": [
+    "0",
+    "1"
+  ]
+}
