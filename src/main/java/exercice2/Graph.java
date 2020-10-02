@@ -11,10 +11,33 @@ public class Graph {
         this.matrice = matrice;
     }
 
-    public void zoneVideMaximal() {
+    public ArrayList<Integer> zoneVideMaximal() {
         ArrayList<Integer> listTrie = triSommetByNbedge();
 
+        //Init list de visited
         ArrayList<Boolean> listVisited = new ArrayList<>();
+        for (int i = 0; i<listTrie.size();i++){
+            listVisited.add(true);
+        }
+
+        for (Integer i : listTrie) {
+            //Si il n'est pas viré
+            if (listVisited.get(i)) {
+                //On parcours tous ces voisins pour les virer
+                ArrayList<Integer> listVoisin = getVoisin(i);
+                for (Integer voisin : listVoisin) {
+                    listVisited.set(voisin, false);
+                }
+            }
+        }
+
+        //On rempli la liste de sortie
+        ArrayList<Integer> returnList = new ArrayList<>();
+        for (int i = 0; i<listVisited.size(); i++) {
+            if (listVisited.get(i)) returnList.add(i);
+        }
+
+        return returnList;
     }
 
 
@@ -32,7 +55,7 @@ public class Graph {
                         Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
-        return new ArrayList<>(result.values());
+        return new ArrayList<>(result.keySet());
     }
 
 
