@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 /**
  * This represent the tape used by a turing machine.
- * It's able to move it's head, read and write at the head position
+ * It's able to move it's head, read and write at the head position.
  */
 public class Tape {
     private int head;
     private final char blankWord;
+    public final String word;
     private final ArrayList<Character> characters;
 
     /**
@@ -16,6 +17,7 @@ public class Tape {
      * @param word the initial value stored on the tape
      */
     public Tape(char blankWord, String word) {
+        this.word = word;
         this.head = 0;
         this.blankWord = blankWord;
         this.characters = new ArrayList<>();
@@ -24,6 +26,9 @@ public class Tape {
         }
     }
 
+    /**
+     * Move the tape's head one case to the right.
+     */
     public void moveRight() {
         ++head;
         if (head >= characters.size()) {
@@ -31,6 +36,9 @@ public class Tape {
         }
     }
 
+    /**
+     * Move the tape's head one case to the left.
+     */
     public void moveLeft() {
         --head;
         if (head < 0) {
@@ -38,10 +46,20 @@ public class Tape {
         }
     }
 
+    /**
+     * Write a character at the head position.
+     *
+     * @param c the char to write
+     */
     public void write(char c) {
         characters.set(head, c);
     }
 
+    /**
+     * Read a character at the head position.
+     *
+     * @return the character at the head position
+     */
     public char read() {
         return characters.get(head);
     }

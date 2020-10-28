@@ -1,8 +1,14 @@
 {
+  "description": "A Turing machine finding if a binary number is even or odd",
+  "blankWord": " ",
+  "alphabet": [
+    "0",
+    "1"
+  ],
   "states": [
     "S",
-    "Pair",
-    "Impair"
+    "Even",
+    "Odd"
   ],
   "initialState": "S",
   "rules": [
@@ -10,34 +16,29 @@
       "state": "S",
       "read": "0",
       "write": "0",
-      "nextState": "Pair",
+      "nextState": "Even",
       "moveDir": "RIGHT"
     },
     {
       "state": "S",
       "read": "1",
       "write": "1",
-      "nextState": "Impair",
+      "nextState": "Odd",
       "moveDir": "RIGHT"
     },
     {
-      "state": "Pair",
+      "state": "Even",
       "read": "1",
       "write": "1",
-      "nextState": "Impair",
+      "nextState": "Odd",
       "moveDir": "RIGHT"
     },
     {
-      "state": "Impair",
+      "state": "Odd",
       "read": "0",
       "write": "0",
-      "nextState": "Pair",
+      "nextState": "Even",
       "moveDir": "RIGHT"
     }
-  ],
-  "blankWord": " ",
-  "alphabet": [
-    "0",
-    "1"
   ]
 }
