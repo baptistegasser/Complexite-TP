@@ -2,6 +2,7 @@ package exercice2;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
 
 public class Graph {
     int[][] matrice;
@@ -11,26 +12,76 @@ public class Graph {
     }
 
     /**
-     * Retourne une liste de sommet formant une zone vide maximum ou maximal
-     * @param maximum définit si l'on veut une zone maximum ou maximal
+     * Retourne une liste de sommet formant une zone vide maximal
      * @return
      */
-    public ArrayList<Integer> zoneVideMaximal(Boolean maximum) {
-        ArrayList<Integer> listTrie;
-        if (maximum) listTrie = triSommetByNbedge();
-        else {
-            listTrie = new ArrayList<>();
-            for (int i = 0; i<matrice.length;i++) listTrie.add(i);
+    public ArrayList<Integer> zoneVideMaximal() {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i<matrice.length;i++) list.add(i);
+
+        return parcours(list);
+    }
+
+    /**
+     * Retourne une liste de sommet formant une zone vide maximum (methode complète)
+     * @return
+     */
+    public ArrayList<Integer> zoneVideMaximumCom() {
+        ArrayList<Integer> list = triSommetByNbedge();
+        return parcours(list);
+    }
+
+    /**
+     * Retourne une liste de sommet formant une zone vide maximum (methode incomplète)
+     * @return
+     */
+    public ArrayList<Integer> zoneVideMaximumInc() {
+        ArrayList<Integer> returnList = new ArrayList<>();
+        ArrayList<Boolean> listVisited = new ArrayList<>();
+        ArrayList<Boolean> listVisitedParcours = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int i = 0; i<matrice.length;i++){
+            list.add(i);
+            listVisitedParcours.add(true);
+            listVisited.add(false);
         }
 
+        for (int sommet = 0; sommet<list.size(); sommet++) {
+            ArrayList<Integer> listVoisin = getVoisin(sommet);
+            for (int voisin = 0; voisin<listVoisin.size(); voisin++) {
+                if (listVisited.get(listVoisin.get(voisin))) {
+                    listVisitedParcours.set(sommet, false);
+                    break;
+                }
+                else if (listVisitedParcours.get(listVoisin.get(voisin))) {
+                    if (getNbEdge(listVoisin.get(voisin)) < getNbEdge(sommet)) {
+                        listVisitedParcours.set(sommet, false);
+                        break;
+                    }
+                }
+            }
+            if (listVisitedParcours.get(sommet)) {
+                listVisited.set(sommet, true);
+                listVisitedParcours.set(sommet, false);
+            }
+        }
 
+        for (int i = 0; i<listVisited.size(); i++) {
+            if (listVisited.get(i)) returnList.add(i+1);
+        }
+
+        return returnList;
+    }
+
+    public ArrayList<Integer> parcours(ArrayList<Integer> list) {
         //Init list de visited
         ArrayList<Boolean> listVisited = new ArrayList<>();
-        for (int i = 0; i<listTrie.size();i++){
+        for (int i = 0; i<list.size();i++){
             listVisited.add(true);
         }
 
-        for (Integer i : listTrie) {
+        for (Integer i : list) {
             //Si il n'est pas viré
             if (listVisited.get(i)) {
                 //On parcours tous ces voisins pour les virer
