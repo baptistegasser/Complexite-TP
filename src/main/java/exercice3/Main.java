@@ -7,7 +7,6 @@ import exercice3.turing.TuringMachine;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -51,7 +50,13 @@ public class Main {
 
         System.out.println("Running: " + machine.description + ", with '" + word + "' as entry word.\n");
         long start = System.nanoTime();
-        machine.run(word);
+        try {
+            machine.run(word);
+        } catch (Throwable t) {
+            System.err.println("Failed to run the Turing machine :");
+            System.err.println(t.getMessage());
+            System.exit(2);
+        }
         long elapsed = System.nanoTime()-start;
         System.out.printf("The Turing machine ended in %d nanosecond which is ~%sms.%n", elapsed, new DecimalFormat("0.00").format(elapsed/1000000.0));
         System.out.println("The state is '" + machine.getCurrentState() + "', this is " + (machine.isInAcceptedState() ? "" : "not " ) + "an acceptable state.");
@@ -83,9 +88,10 @@ public class Main {
      * Display a file containing an exemple Turing machine definition.
      */
     private static void displayExampleDefinition() {
-        System.out.println("######################################");
-        System.out.println("# This is an example of a definition #");
-        System.out.println("######################################\n");
+        System.out.println("############################################");
+        System.out.println("# This is an example of a definition       #");
+        System.out.println("# Look in the 'examples/' dir to find more #");
+        System.out.println("############################################\n");
 
         Path path = Path.of(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("%20", " "), "exercice3", "examples", "binary_odd_even.turing");
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
