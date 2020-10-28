@@ -11,8 +11,8 @@ public class Graph {
     }
 
     /**
-     * Retourne une liste de sommet formant une zone vide
-     * @param maximum definit si l'on veut une zone maximum ou non
+     * Retourne une liste de sommet formant une zone vide maximum ou maximal
+     * @param maximum définit si l'on veut une zone maximum ou maximal
      * @return
      */
     public ArrayList<Integer> zoneVideMaximal(Boolean maximum) {
