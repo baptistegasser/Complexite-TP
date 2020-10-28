@@ -1,0 +1,45 @@
+description: Turing machine that recognize word factor of "abc"
+
+# The accepted characters that can be read/written on the tape
+alphabet: a, b, c, d, B
+blank: B
+
+# Define the valid states, the initial one and the acceptable final states
+states: q0, q1, q2, q3, q4, qOUI, qNON
+init_state: q0
+final_states: qOUI
+
+# Transitions between states
+q0 a a q1 R
+q0 b b q1 R
+q0 c c q1 R
+q0 d d q1 R
+q0 B B qNON R
+
+# from q1
+q1 a a q2 R
+q1 b b q1 R
+q1 c c q1 R
+q1 d d q1 R
+q1 B B qNON R
+
+# from q2
+q2 a a q1 R
+q2 b b q3 R
+q2 c c q1 R
+q2 d d q1 R
+q2 B B qNON R
+
+# from q3
+q3 a a q1 R
+q3 b b q1 R
+q3 c c q4 R
+q3 d d q1 R
+q3 B B qNON R
+
+# from q4
+q4 a a qOUI R
+q4 b b qOUI R
+q4 c c qOUI R
+q4 d d qOUI R
+q4 B B qNON R

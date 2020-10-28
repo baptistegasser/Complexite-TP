@@ -1,0 +1,37 @@
+description: Turing machine that recognize palindrome composed of characters 'a' and 'b'
+
+# The accepted characters that can be read/written on the tape
+alphabet: a, b, B
+blank: B
+
+# Define the valid states, the initial one and the acceptable final states
+states: q0, q1, q2, q3, q4, q5, q6, qOUI
+init_state: q0
+final_states: qOUI
+
+# Transitions between states
+q0 B B qOUI R
+q0 a B q1 R
+q0 b B q4 R
+
+q1 a a q1 R
+q1 b b q1 R
+q1 B B q2 L
+
+q2 a B q3 L
+q2 B B qOUI R
+
+q3 a a q3 L
+q3 b b q3 L
+q3 B B q0 R
+
+q4 a a q4 R
+q4 b b q4 R
+q4 B B q5 L
+
+q5 b B q6 L
+q5 B B qOUI R
+
+q6 a a q6 L
+q6 b b q6 L
+q6 B B q0 R
