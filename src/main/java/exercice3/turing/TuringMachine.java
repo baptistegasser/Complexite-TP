@@ -1,4 +1,6 @@
-package machine_turing_deterministe.turing;
+package exercice3.turing;
+
+import java.util.ArrayList;
 
 /**
  * A Turing machine simulator
@@ -7,67 +9,78 @@ public class TuringMachine {
     /**
      * The description of what this machine does.
      */
-    private final String description;
+    public String description;
 
     /**
      * The reserved char used to represent blank word, end of tape...
      */
-    private final char blankWord;
+    public char blankWord;
     /**
      * The list of valid character supported by this machine.
      */
-    private final char[] alphabet;
+    public char[] alphabet;
 
     /**
      * The list of possible states.
      */
-    private final String[] states;
+    public String[] states;
     /**
      * The initial state in which the machine is.
      */
-    private final String initialState;
+    public String initialState;
     /**
      * The current state in which the machine is.
      */
     private String currentState;
+    /**
+     * The list of final states.
+     */
+    public String[] finalStates;
 
     /**
      * The rules used to transition from one state to another.
      */
-    private final Rule[] rules;
+    public ArrayList<Rule> rules;
 
     /**
      * The machine tape.
      */
     private Tape tape;
 
-    public TuringMachine(String description, char blankWord, char[] alphabet, String[] states, String initialState, Rule[] rules) {
-        this.description = description;
-
-        this.alphabet = alphabet;
-        this.blankWord = blankWord;
-
-        this.states = states;
-        this.initialState = initialState;
-        this.rules = rules;
+    /**
+     * Default constructor
+     */
+    public TuringMachine() {
+        this.states = new String[0];
+        this.finalStates = new String[0];
+        this.alphabet = new char[0];
+        this.rules = new ArrayList<>();
     }
 
     /**
-     * Prepare the machine before a run.
+     * Initialize the Turing machine.
      *
-     * @param word the word to put on the tape
+     * @param word the word to place on the tape.
      */
     public void init(String word) {
+        for (char c : word.toCharArray()) {
+            if (!Util.charArrayContain(alphabet, c)) {
+                throw new RuntimeException("The input word contain character not supported by the machine alphabet.");
+            }
+        }
+
         this.currentState = initialState;
         this.tape = new Tape(blankWord, word);
     }
 
     /**
-     * Start the machine.
-     * It will run step by step, until the machine can't find a rules to apply.
+     * Initialize and automatically run each {@link #step()} of the machine until it stop.
+     * If you want to run step by step manually, call {@link #init} than {@link #step()} by hand.
+     *
+     * @param word the entry word on the tape
      */
-    public void run() {
-        System.out.println("Running: " + this.description + "; with '" + tape.word + "' as entry word.\n");
+    public void run(String word) {
+        init(word);
 
         boolean flag = true;
         while (flag) {
@@ -115,5 +128,17 @@ public class TuringMachine {
      */
     public String getCurrentState() {
         return currentState;
+    }
+
+    /**
+     * @return true if the current state is a state representing acceptation (a final state)
+     */
+    public boolean isInAcceptedState() {
+        for (String state : finalStates) {
+            if (state.equals(currentState)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

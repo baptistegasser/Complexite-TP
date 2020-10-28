@@ -1,0 +1,23 @@
+# This file support skipping lines and commentary lines (must start with #)
+
+# The description of the Turing machine
+description: Turing machine to find if a binary number is odd or even
+
+# The accepted characters that can be read/written on the tape
+alphabet: 0, 1, B
+blank: B
+
+# Define the valid states, the initial one and the acceptable final states
+states: q0, even, odd
+init_state: q0
+final_states: even, odd
+
+# Transitions between states
+q0 0 0 even R
+q0 1 1 odd R
+
+even 0 0 even R
+even 1 1 odd R
+
+odd 0 0 even R
+odd 1 1 odd R

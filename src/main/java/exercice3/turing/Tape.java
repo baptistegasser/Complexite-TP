@@ -1,4 +1,4 @@
-package machine_turing_deterministe.turing;
+package exercice3.turing;
 
 import java.util.ArrayList;
 

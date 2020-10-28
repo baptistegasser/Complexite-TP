@@ -1,0 +1,2 @@
+Main-Class: exercice3.Main
+Class-Path: ..

@@ -1,4 +1,4 @@
-package machine_turing_deterministe.turing;
+package exercice3.turing;
 
 /**
  * Representation of a transition rule used by the turing machine.
