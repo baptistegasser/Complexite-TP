@@ -35,8 +35,9 @@ public class IterativFibonacci {
     }
 
     public static void main (String[] args) {
-        int maxIndice = 15500;
         long lStartTime = System.nanoTime();
+
+        int maxIndice = 15500 ;
         IterativFibonacci iterativFibonacci = new IterativFibonacci(maxIndice);
         ArrayList<BigInteger> result = iterativFibonacci.getFibonacci();
         int i = 0;
@@ -46,6 +47,7 @@ public class IterativFibonacci {
             i++;
         } */
         System.out.println(result.get(maxIndice));
+
         long lEndTime = System.nanoTime();
         long time = lEndTime - lStartTime;
         System.out.println("Temps d'execution : " + time/1000000 + " ms");

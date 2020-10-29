@@ -10,12 +10,17 @@ public class RecursivFibonacci {
         else {
             maxValue = maxValue - 1;
         }
+        // Récursivité
         return fibo(maxValue, (F1.add(F0)), F1);
     }
 
     public static void main (String[] args) {
+        // Vide la mémoire
+        System.gc();
         long lStartTime = System.nanoTime();
-        System.out.println(fibo(15500,new BigInteger ("1"), new BigInteger("0")));
+
+        System.out.println(fibo(1000,new BigInteger ("1"), new BigInteger("0")));
+
         long lEndTime = System.nanoTime();
         long time = lEndTime - lStartTime;
         System.out.println("Temps d'execution : " + time/1000000 + " ms");
