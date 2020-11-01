@@ -3,26 +3,38 @@ import java.math.BigInteger;
 
 public class RecursivFibonacci {
 
-    public static BigInteger fibo (int maxValue, BigInteger F1 , BigInteger F0) {
-        // Retourne la valeur de F0 et F1
-        if (maxValue == 0) return F0;
-        else if (maxValue == 1) return F1;
-        else {
-            maxValue = maxValue - 1;
-        }
-        // Récursivité
-        return fibo(maxValue, (F1.add(F0)), F1);
+    // Compteur pour le nombre d'appels à fibo()
+    static long countFiboCall = 0;
+
+    public static BigInteger fibo (int indice) {
+        countFiboCall++;
+
+        if(indice==0) return new BigInteger("0");
+        if(indice ==1) return new BigInteger("1");
+
+        // récursivité
+        return fibo(indice-1).add(fibo(indice-2));
     }
 
     public static void main (String[] args) {
-        // Vide la mémoire
+        // Vide la mémoire pour éviter un StackOverFlow du à la récursivité.
         System.gc();
-        long lStartTime = System.nanoTime();
+        int indice = 40;
+        long avgTime = 0;
+        int nbIter = 1;
+        System.out.println("Calcul " + nbIter + " fois pour la " + indice + " eme valeur de la suite de Fibonacci");
 
-        System.out.println(fibo(1000,new BigInteger ("1"), new BigInteger("0")));
+        for (int i = 0; i < nbIter; i++) {
+            long lStartTime = System.nanoTime();
 
-        long lEndTime = System.nanoTime();
-        long time = lEndTime - lStartTime;
-        System.out.println("Temps d'execution : " + time/1000000 + " ms");
+            fibo(indice);
+
+            long lEndTime = System.nanoTime();
+            long time = lEndTime - lStartTime;
+            avgTime += time;
+        }
+        System.out.println(countFiboCall + " appels à fibo() effectués");
+        System.out.println("Temps moyen " + ((avgTime/1_000_000)/nbIter) + " ms");
+
     }
 }
