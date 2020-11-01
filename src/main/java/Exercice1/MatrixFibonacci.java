@@ -20,7 +20,7 @@ class MatrixFibonacci
 
         // Calcul de la valeur
         // n - 1 fois car on récupère ensuite la valeur Fn+1 ; on économise ainsi un calcul
-        power(Fib, n-1);
+        rec(Fib, n-1);
 
         /*
         On retourne la valeur d'indice 0,0 car nous avons :
@@ -34,7 +34,7 @@ class MatrixFibonacci
 
 
 
-    static void power(BigInteger[][] Fib, int n)
+    static void rec(BigInteger[][] Fib, int n)
     {
         countFiboCall++;
         // Fin de la récursivité
@@ -45,7 +45,7 @@ class MatrixFibonacci
         |1 ; 0|     |Fn ; Fn + 1 |
          */
 
-        power(Fib, n/2);
+        rec(Fib, n/2);
         // M^n = M^n/2 * M^n/2
         multiplyMatrix(Fib, Fib);
 
