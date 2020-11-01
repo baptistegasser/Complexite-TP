@@ -4,7 +4,7 @@ This package contains a simple Turing machine simulator.
 Read in another language : [English](README.en.md), [Français](README.md).
 
 ## Warning
-This simulator offer no guaranty that a given machine will stop or not, if we feed it a definition that will loop forether,
+This simulator offer no guaranty that a given machine will stop or not, if we feed it a definition that will loop forever,
 the simulator will not stop by himself.
 
 
@@ -36,7 +36,7 @@ java exercice3.Main /chemin/vers/def.turing mot_entre
 ```
 
 
-## Le format du fichier
+## The file format
 The file containing the definition of a Turing machine use a format created specially for the simulator, we can name the 
 files using this format with the extension `.turing` but it won't affect the simulator if we don't.
 
@@ -45,7 +45,7 @@ The format support skipping line en comments line starting with `#`.
 The order of the parameters is important, the alphabet and valid state lists must be declared before any other parameters 
 using a char or state, so they can be checked, preventing definition with rule concerning invalid states in example.
 
-The parameters are as follow :
+The parameters are as follows :
 - **description**: what this machine does
 - **alphabet**: list of char recognized by this machine, separated by commas
 - **blank**: the blank char, must be part of the alphabet
