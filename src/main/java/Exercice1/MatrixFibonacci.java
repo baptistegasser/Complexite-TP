@@ -75,7 +75,7 @@ class MatrixFibonacci
 
     public static void main (String args[])
     {
-        int indice = 125000;
+        int indice = 50_000;
         long avgTime = 0;
         int nbIter = 1;
         System.out.println("Calcul " + nbIter + " fois pour la " + indice + " eme valeur de la suite de Fibonacci");
