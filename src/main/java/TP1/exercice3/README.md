@@ -29,11 +29,11 @@ java -jar Simulator.jar /chemin/vers/def.turing mot_entre
 
 **En exécutant les fichiers .class**
 ```shell
-# Dans src/main/java/exercice3
-java -cp .. exercice3.Main /chemin/vers/def.turing mot_entre
+# Dans src/main/java/TP1.TP2.Exercice1.exercice3
+java -cp .. Main /chemin/vers/def.turing mot_entre
 
-# Dans src/main/java/exercice3
-java exercice3.Main /chemin/vers/def.turing mot_entre
+# Dans src/main/java/TP1.TP2.Exercice1.exercice3
+java Main /chemin/vers/def.turing mot_entre
 ```
 
 

@@ -1,4 +1,4 @@
-package Exercice1;
+package TP1.Exercice1;
 import java.math.BigInteger;
 
 class MatrixFibonacci

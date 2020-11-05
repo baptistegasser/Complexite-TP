@@ -1,8 +1,8 @@
-package exercice3;
+package TP1.exercice3;
 
-import exercice3.turing.Parser;
-import exercice3.turing.ParserException;
-import exercice3.turing.TuringMachine;
+import TP1.exercice3.turing.Parser;
+import TP1.exercice3.turing.ParserException;
+import TP1.exercice3.turing.TuringMachine;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -93,7 +93,7 @@ public class Main {
         System.out.println("# Look in the 'examples/' dir to find more #");
         System.out.println("############################################\n");
 
-        Path path = Path.of(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("%20", " "), "exercice3", "examples", "binary_odd_even.turing");
+        Path path = Path.of(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("%20", " "), "TP1/exercice3", "examples", "binary_odd_even.turing");
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             while ((line = br.readLine()) != null) {

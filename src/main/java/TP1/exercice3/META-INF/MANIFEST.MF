@@ -1,0 +1,2 @@
+Main-Class: TP1.exercice3.Main
+Class-Path: ..

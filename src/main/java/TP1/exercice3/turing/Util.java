@@ -1,4 +1,4 @@
-package exercice3.turing;
+package TP1.exercice3.turing;
 
 /**
  * Class containing utility functions

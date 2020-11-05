@@ -1,4 +1,4 @@
-package exercice2;
+package TP1.exercice2;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package exercice2;
+package TP1.exercice2;
 
 public class MatriceTest {
     public static final int[][] matrice1 = new int[][] {
