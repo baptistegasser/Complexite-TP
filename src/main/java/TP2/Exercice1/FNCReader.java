@@ -5,7 +5,6 @@ import javafx.util.Pair;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class FNCReader {
@@ -105,5 +104,9 @@ public class FNCReader {
 
     public ArrayList<ArrayList<Pair<Integer, Boolean>>> getFncList() {
         return fncList;
+    }
+
+    public int getNbTermes() {
+        return nbTermes;
     }
 }
