@@ -51,10 +51,13 @@ public class Fuck implements Closeable {
                 if (grid[x - 1][y - 1] != 0) {
                     clauses.add(var(grid[x - 1][y - 1], x, y) + " 0");
                 } else {
+                    StringBuilder all = new StringBuilder();
                     for (int v = 1; v <= max; ++v) {
                         String var = var(v, x, y);
                         clauses.add(String.format("%s -%s 0", var, var));
+                        all.append(var).append(" ");
                     }
+                    clauses.add(all.toString() + " 0");
                 }
             }
         }

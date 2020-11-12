@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public class MiniSat {
-    private static boolean satisfiable = false;
     private static final String OS = System.getProperty("os.name").toLowerCase();
 
     public static boolean run(File file) {
@@ -31,12 +30,13 @@ public class MiniSat {
             Process ps = new ProcessBuilder(Arrays.asList(binary, file.getAbsolutePath())).start();
 
             new Thread(new ErrorStreamConsumer(ps.getErrorStream())).start();
-
             BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream()));
+
             String line;
+            boolean satisfiable = true;
             while ((line = br.readLine()) != null) {
-                if (line.contains("SATISFIABLE")) {
-                    satisfiable = true;
+                if (line.contains("UNSATISFIABLE")) {
+                    satisfiable = false;
                 }
             }
 
