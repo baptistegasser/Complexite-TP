@@ -1,4 +1,4 @@
-package TP2.exercice3;
+package TP2.Exercice3;
 
 public class SudokuToSat {
     public static void main(String[] args) throws Exception {

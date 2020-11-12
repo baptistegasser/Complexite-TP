@@ -1,4 +1,4 @@
-package TP2.exercice3;
+package TP2.Exercice3;
 
 import TP2.minisat.MiniSat;
 
