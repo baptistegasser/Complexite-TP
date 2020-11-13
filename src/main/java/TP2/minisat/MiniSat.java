@@ -5,6 +5,9 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
 
+/**
+ * Allow to run the SAT solver program "Minisat" on both Windows and Linux
+ */
 public class MiniSat {
     private static final String OS = System.getProperty("os.name").toLowerCase();
 

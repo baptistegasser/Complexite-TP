@@ -5,9 +5,15 @@ import java.io.IOException;
 import java.util.Date;
 
 public class Util {
+
+    /**
+     * @return a temporary file that will be deleted with the virtual machine.
+     */
     public static File CreateTmpFile() {
         try {
-            return File.createTempFile(new Date().toString(), null);
+            File tmp = File.createTempFile(new Date().toString(), null);
+            tmp.deleteOnExit();
+            return tmp;
         } catch (IOException e) {
             throw new RuntimeException("Failed to create tmp file");
         }
