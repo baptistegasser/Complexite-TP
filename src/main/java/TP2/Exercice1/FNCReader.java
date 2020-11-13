@@ -1,6 +1,5 @@
 package TP2.Exercice1;
 
-import javafx.util.Pair;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

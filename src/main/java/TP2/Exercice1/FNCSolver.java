@@ -1,6 +1,5 @@
 package TP2.Exercice1;
 
-import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class FNCSolver {
