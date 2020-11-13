@@ -23,7 +23,7 @@ public class FNCSolver {
      * Méthode génerale permettant de traiter une formule FNC : lecture de fichier et résolution
      */
     public void solve () {
-        FNCReader fileReader = new FNCReader("C:\\Users\\lucco\\IdeaProjects\\Complexite-TP\\src\\main\\java\\TP2\\Exercice1\\data.cnf");
+        FNCReader fileReader = new FNCReader("data.cnf", "input.txt");
         fileReader.ReadFile();
         this.fncList = fileReader.getFncList();
         this.nbTermes = fileReader.getNbTermes();

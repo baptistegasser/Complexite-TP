@@ -8,24 +8,31 @@ import java.util.Scanner;
 public class FNCReader {
 
     private Scanner scanner;
-    private String name;
+    private String data;
+    private String input;
     int nbClauses = 0;
     int nbTermes = 0;
     ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
     ArrayList<Boolean> valueOfTerms;
 
-    public FNCReader(String name) {
-        this.name = name;
+    /**
+     * Constructeur
+     * @param data le fichier contenant la CNF
+     * @param input le fichier contenant la valeur des termes
+     */
+    public FNCReader(String data, String input) {
+        this.data = data;
+        this.input = input;
         fncList = new ArrayList<>();
         valueOfTerms  = new ArrayList<>();
     }
 
     /**
-     * Lecture du fichier donné en paramètre au constructeur
+     * Lecture des fichiers
      */
     public void ReadFile () {
         try {
-            File myObj = new File(name);
+            File myObj = new File("src\\main\\java\\TP2\\Exercice1\\"+data);
             scanner = new Scanner(myObj);
 
             fileParams();
@@ -112,7 +119,7 @@ public class FNCReader {
     }
 
     /**
-     * Permet de lire la valeur des termes à partir du fichier input.txt
+     * Permet de lire la valeur des termes à partir du fichier input
      */
     public void readTermes () throws FileNotFoundException {
 
@@ -123,7 +130,7 @@ public class FNCReader {
 
         // Lecture du fichier
 
-        File myObj = new File("C:\\Users\\lucco\\IdeaProjects\\Complexite-TP\\src\\main\\java\\TP2\\Exercice1\\input.txt");
+        File myObj = new File("src\\main\\java\\TP2\\Exercice1\\"+input);
         Scanner scanner = new Scanner(myObj);
         String data = scanner.nextLine();
 
