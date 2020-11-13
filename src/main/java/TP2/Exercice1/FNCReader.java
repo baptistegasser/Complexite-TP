@@ -32,7 +32,7 @@ public class FNCReader {
                 return;
             }
             readClauses();
-            for (ArrayList list: fncList) {
+            for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
                 System.out.println(list);
             }
 
