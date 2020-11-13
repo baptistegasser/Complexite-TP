@@ -18,7 +18,7 @@ public class FNCSolver {
     /**
      * Méthode qui permet de dire si la FNC est SAT
      */
-    public void solve () throws FileNotFoundException {
+    public void solve () {
         FNCReader fileReader = new FNCReader("C:\\Users\\lucco\\IdeaProjects\\Complexite-TP\\src\\main\\java\\TP2\\Exercice1\\data.cnf");
         fileReader.ReadFile();
         this.fncList = fileReader.getFncList();
