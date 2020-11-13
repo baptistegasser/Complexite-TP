@@ -1,7 +1,6 @@
 package TP2.Exercice1;
 
 import javafx.util.Pair;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,10 +12,13 @@ public class FNCReader {
     int nbClauses = 0;
     int nbTermes = 0;
     ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
+    ArrayList<Boolean> valueOfTerms;
+
 
     public FNCReader(String name) {
         this.name = name;
         fncList = new ArrayList<>();
+        valueOfTerms  = new ArrayList<>();
     }
 
     /**
@@ -32,11 +34,13 @@ public class FNCReader {
                 return;
             }
             readClauses();
+            System.out.println("Liste des clauses : ");
             for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
                 System.out.println(list);
             }
 
             scanner.close();
+            readTermes();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -53,11 +57,11 @@ public class FNCReader {
             String [] params = data.split(" ");
             if(params[0].equals("p") || params[1].equals("cnf") ) {
                 if(Integer.parseInt(params[2]) > 0 && Integer.parseInt(params[3]) > 0) {
-                    System.out.println("Fichier CNF Valide trouvé");
+                    System.out.println("\nFichier CNF Valide trouvé");
                     nbTermes = Integer.parseInt(params[2]);
                     nbClauses = Integer.parseInt(params[3]);
                     System.out.println("Nombre de termes : " + nbTermes);
-                    System.out.println("Nombre de clauses : " + nbClauses);
+                    System.out.println("Nombre de clauses : " + nbClauses + "\n");
                 }
             }
         }
@@ -102,11 +106,59 @@ public class FNCReader {
         }
     }
 
+    /**
+     * Permet de lire la valeur des termes à partir du fichier input.txt
+     */
+    public void readTermes () throws FileNotFoundException {
+
+        // On initialise la valeur de chaque termes à TRUE
+        for (int i = 0; i < nbTermes; i++) {
+            valueOfTerms.add(Boolean.TRUE);
+        }
+
+        // Lecture du fichier
+        File myObj = new File("C:\\Users\\lucco\\IdeaProjects\\Complexite-TP\\src\\main\\java\\TP2\\Exercice1\\input.txt");
+        Scanner scanner = new Scanner(myObj);
+        String data = scanner.nextLine();
+
+        // On sépare chaque entrée
+        String [] termsValue = data.split(" ");
+        try {
+            for (int i = 0; i < nbTermes; i++) {
+                // Si le terme contient un "-", on passe de TRUE à FALSE
+                if (termsValue[i].contains("-")) {
+                    // Si le chiffre donné est faux
+                    if (Integer.parseInt(String.valueOf(termsValue[i].charAt(1))) != (i + 1) || termsValue[i].length() > 2) throw new UnsupportedOperationException("Valeur de l'indice éronnée");
+                    valueOfTerms.set(i, Boolean.FALSE);
+                    continue;
+                }
+                // Si le chiffre donné est faux
+                if(Integer.parseInt(termsValue[i]) != (i+1) ) throw new UnsupportedOperationException("Valeur de l'indice éronnée");
+            }
+        }
+        catch (UnsupportedOperationException e) {
+            System.out.println("Une erreur est survenue");
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        // Affichage des valeurs
+        System.out.println("\nValeur des clauses : ");
+        for (int i = 0; i < nbTermes; i++) {
+            System.out.println("x" + (i+1) + " : " + valueOfTerms.get(i));
+        }
+
+    }
+
     public ArrayList<ArrayList<Pair<Integer, Boolean>>> getFncList() {
         return fncList;
     }
 
     public int getNbTermes() {
         return nbTermes;
+    }
+
+    public ArrayList<Boolean> getValueOfTerms() {
+        return valueOfTerms;
     }
 }
