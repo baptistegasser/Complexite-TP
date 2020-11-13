@@ -22,4 +22,8 @@ public class Pair<K, V> {
         return element1;
     }
 
+    @Override
+    public String toString() {
+        return element0 + "=" + element1;
+    }
 }

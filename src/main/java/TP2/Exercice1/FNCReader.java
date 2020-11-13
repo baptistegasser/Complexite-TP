@@ -27,19 +27,19 @@ public class FNCReader {
         try {
             File myObj = new File(name);
             scanner = new Scanner(myObj);
+
             fileParams();
+
             if( nbClauses == 0) {
                 System.out.println("Fichier non valide. Merci de revoir la première ligne du fichier");
                 return;
             }
+
             readClauses();
-            System.out.println("Liste des clauses : ");
-            for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
-                System.out.println(list);
-            }
+            readTermes();
 
             scanner.close();
-            readTermes();
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -99,6 +99,12 @@ public class FNCReader {
                 }
                 i++;
             }
+
+            System.out.println("Liste des clauses : ");
+            for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
+                System.out.println(list);
+            }
+
         } catch (UnsupportedOperationException e) {
             System.out.println("Un problème est survenu lors de la construction de la liste de clauses");
             e.printStackTrace();
@@ -116,6 +122,7 @@ public class FNCReader {
         }
 
         // Lecture du fichier
+
         File myObj = new File("C:\\Users\\lucco\\IdeaProjects\\Complexite-TP\\src\\main\\java\\TP2\\Exercice1\\input.txt");
         Scanner scanner = new Scanner(myObj);
         String data = scanner.nextLine();
@@ -146,6 +153,7 @@ public class FNCReader {
         for (int i = 0; i < nbTermes; i++) {
             System.out.println("x" + (i+1) + " : " + valueOfTerms.get(i));
         }
+        scanner.close();
 
     }
 
