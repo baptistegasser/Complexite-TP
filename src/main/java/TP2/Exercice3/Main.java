@@ -4,7 +4,7 @@ package TP2.Exercice3;
  * Use multiple sudoku grid to show that our program is
  * able to detect valid (solvable) sudoku grids.
  *
- * @see SudokuToSat for the convertion to a SAT problem
+ * @see SudokuToSAT for the convertion to a SAT problem
  */
 public class Main {
     public static void main(String[] args) {
@@ -34,9 +34,9 @@ public class Main {
         invalid_3[2] = new int[]{3, 1, 2, 4}; // 31  32  33  34
         invalid_3[3] = new int[]{2, 4, 3, 0}; // 41  42  43  44
 
-        System.out.println(new SudokuToSat(n, valid).isSolvable());
-        System.out.println(new SudokuToSat(n, invalid).isSolvable());
-        System.out.println(new SudokuToSat(n, invalid_2).isSolvable());
-        System.out.println(new SudokuToSat(n, invalid_3).isSolvable());
+        System.out.println(new SudokuToSAT(n, valid).isSolvable());
+        System.out.println(new SudokuToSAT(n, invalid).isSolvable());
+        System.out.println(new SudokuToSAT(n, invalid_2).isSolvable());
+        System.out.println(new SudokuToSAT(n, invalid_3).isSolvable());
     }
 }

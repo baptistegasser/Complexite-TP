@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class SudokuToSat {
+public class SudokuToSAT {
     private final int n;
     private final int max;
     private final int[][] grid;
@@ -23,7 +23,7 @@ public class SudokuToSat {
      * @param n the size of a group of cell
      * @param grid the grid of size n*n containing number between 0 and n*n where 0 is an empty cell (no value set)
      */
-    public SudokuToSat(int n, int[][] grid) {
+    public SudokuToSAT(int n, int[][] grid) {
         this.n = n;
         this.max = n * n;
         this.grid = grid;
