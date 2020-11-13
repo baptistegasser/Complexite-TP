@@ -54,4 +54,9 @@ public class FNCSolver {
         }
         return true;
     }
+
+    public static void main(String[] args)  {
+        FNCSolver fncSolver = new FNCSolver();
+        fncSolver.solve();
+    }
 }
