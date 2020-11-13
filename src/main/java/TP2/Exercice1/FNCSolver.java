@@ -22,7 +22,7 @@ public class FNCSolver {
         this.fncList = fileReader.getFncList();
         this.nbTermes = fileReader.getNbTermes();
         termsValues();
-        System.out.println(isSat());
+        System.out.println("La FNC est " + isSat());
     }
 
     /**
@@ -52,13 +52,17 @@ public class FNCSolver {
         }
     }
 
+    // Vérifie si la FNC est SAT
     public boolean isSat () {
+        // Pour chaque clause
         for (ArrayList<Pair<Integer, Boolean>> currentList: fncList) {
+            // On vérifie si au moins une valeur est à vrai
             boolean isClauseGood = false;
             for (Pair<Integer, Boolean> currentPair: currentList) {
                 int xindice = currentPair.getKey();
                 //car list de taille termes - 1
                 boolean termValue = valueOfTerms.get(xindice - 1);
+                // Dans les deux cas suivant, une clause est à vrai : la clause est validée
                 if(currentPair.getValue() && termValue) {
                     isClauseGood = true;
                     break;
@@ -68,6 +72,7 @@ public class FNCSolver {
                     break;
                 }
             }
+            // La clause n'a pas été passé à vrai : return false
             if(!isClauseGood) return false;
         }
         return true;
