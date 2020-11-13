@@ -1,19 +1,13 @@
 package TP2.Exercice1;
 
-
 import javafx.util.Pair;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FNCSolver {
+
     int nbTermes;
     ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
     ArrayList<Boolean> valueOfTerms = new ArrayList<>();
-
 
     /**
      * Méthode qui permet de dire si la FNC est SAT

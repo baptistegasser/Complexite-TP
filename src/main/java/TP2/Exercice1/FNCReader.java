@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FNCReader {
+
     private Scanner scanner;
     private String name;
     int nbClauses = 0;
     int nbTermes = 0;
     ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
     ArrayList<Boolean> valueOfTerms;
-
 
     public FNCReader(String name) {
         this.name = name;
