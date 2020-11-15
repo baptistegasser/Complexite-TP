@@ -1,7 +1,6 @@
 package TP2.minisat;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +11,7 @@ import java.util.Arrays;
  */
 public class MiniSat {
     private static final String OS = System.getProperty("os.name").toLowerCase();
+    public static boolean DEBUG = false;
 
     public static boolean run(File file) {
         String binName;
@@ -42,6 +42,9 @@ public class MiniSat {
             String line;
             boolean satisfiable = true;
             while ((line = br.readLine()) != null) {
+                if (DEBUG) {
+                    System.out.println("line");
+                }
                 if (line.contains("UNSATISFIABLE")) {
                     satisfiable = false;
                 }
