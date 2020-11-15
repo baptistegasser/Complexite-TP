@@ -1,8 +1,10 @@
 package TP2.minisat;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -27,9 +29,11 @@ public class MiniSat {
             throw new RuntimeException(String.format("Failed to find %s in resources dir", binName));
         }
 
-        String binary = Path.of(url.getFile()).toString().replaceAll("%20", " ");
-
         try {
+            String mainPath = Paths.get(url.toURI()).toString();
+
+            String binary = Path.of(mainPath).toString().replaceAll("%20", " ");
+
             Process ps = new ProcessBuilder(Arrays.asList(binary, file.getAbsolutePath())).start();
 
             new Thread(new ErrorStreamConsumer(ps.getErrorStream())).start();
@@ -44,7 +48,7 @@ public class MiniSat {
             }
 
             return satisfiable;
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
