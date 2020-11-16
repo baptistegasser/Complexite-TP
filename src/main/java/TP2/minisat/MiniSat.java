@@ -21,7 +21,7 @@ public class MiniSat {
         } else if (OS.contains("nux") || OS.contains("nix") || OS.contains("aix")) {
             binName = "MiniSat_v1.14_linux";
         } else if (OS.contains("mac")) {
-            binName = "MiniSat_v1.14_linux";
+            binName = "MiniSat_mac";
         } else {
             throw new UnsupportedOperationException("Your OS is not supported by provided MiniSat binaries. Please use Windows or Linux");
         }
