@@ -45,7 +45,7 @@ public class MiniSat {
             boolean satisfiable = true;
             while ((line = br.readLine()) != null) {
                 if (DEBUG) {
-                    System.out.println("line");
+                    System.out.println(line);
                 }
                 if (line.contains("UNSATISFIABLE")) {
                     satisfiable = false;
