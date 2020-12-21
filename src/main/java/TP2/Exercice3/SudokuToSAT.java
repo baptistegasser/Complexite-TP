@@ -1,12 +1,6 @@
 package TP2.Exercice3;
 
-import TP2.minisat.MiniSat;
-import TP2.minisat.Util;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -30,25 +24,57 @@ public class SudokuToSAT {
     }
 
     /**
-     * @return true if the sudoku {@link #grid} is solvable
+     * Convert this sudoku problem to sat and write it to a temporary file.
+     *
+     * @return a {@link File} instance representing the used file
      */
-    public boolean isSolvable() {
-        // Generate the clauses
-        final ArrayList<String> clauses = generateClauses();
+    public void toSAT() throws IOException {
+        toSAT(null);
+    }
 
-        // Create temp file
-        File tmp = Util.CreateTmpFile();
+    /**
+     * Convert this sudoku problem to sat and write it to a file.
+     *
+     * @param file the file to write to
+     * @return a {@link File} instance representing the used file
+     */
+    public void toSAT(File file) throws IOException {
+        try  {
+            BufferedWriter bw;
+            if (file == null) {
+                bw = new BufferedWriter(new OutputStreamWriter(System.out));
+            } else {
+                bw = new BufferedWriter(new FileWriter(file));
+            }
 
-        // Write them to a file
-        writeSatToFile(tmp, clauses);
+            // Generate the clauses and write them to the output
+            final ArrayList<String> clauses = generateClauses();
+            writeSatToFile(bw, clauses);
 
-        // Test if solvable with Minisat
-        boolean result = MiniSat.run(tmp);
+            // Clean and return the used file
+            bw.close();
+        } catch (IOException ioe) {
+            System.err.println("Failed due to I/O error.");
+            ioe.printStackTrace();
+            throw new RuntimeException(ioe);
+        }
+    }
 
-        // Delete temp file
-        tmp.delete();
+    /**
+     * Write a sat problem to a file.
+     *
+     * @param bw the object to write to
+     * @param clauses the clauses to write
+     */
+    private void writeSatToFile(BufferedWriter bw, ArrayList<String> clauses) throws IOException {
+        String cnf = String.format("p cnf %d %d", vars.size(), clauses.size());
+        bw.write(cnf);
+        bw.newLine();
 
-        return result;
+        for (String clause : clauses) {
+            bw.write(clause + " 0");
+            bw.newLine();
+        }
     }
 
     /**
@@ -60,28 +86,6 @@ public class SudokuToSAT {
         clauses.addAll(groupCellsClauses());
         clauses.addAll(columnAndLineClauses());
         return clauses;
-    }
-
-    /**
-     * Write a sat problem to a file.
-     * format is :
-     * p cnf 3 1
-     * 1 -2 4 0
-     *
-     * @param file the file to write to
-     * @param clauses the clauses to write
-     */
-    private void writeSatToFile(File file, ArrayList<String> clauses) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            String cnf = String.format("p cnf %d %d", vars.size(), clauses.size());
-            writeLine(bw, cnf);
-
-            for (String clause : clauses) {
-                writeClauseLine(bw, clause);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -222,31 +226,5 @@ public class SudokuToSAT {
      */
     private String cell(int x, int y) {
         return x + "" + y;
-    }
-
-    /**
-     * Write a string and jump to next line.
-     *
-     * @param bw the writer to write the string to
-     * @param s  the string to write
-     * @throws IOException writing might fail
-     */
-    private void writeLine(BufferedWriter bw, String s) throws IOException {
-        bw.write(s);
-        bw.newLine();
-    }
-
-    /**
-     * Write a clause and jump to next line.
-     * A clause is of form "1 3 -4".
-     * Writing it will result in "1 3 -4 0\n".
-     *
-     * @param bw     the writer to write the string to
-     * @param clause the clause to write
-     * @throws IOException writing might fail
-     * @see #writeLine(BufferedWriter, String) for the actual function writing the line
-     */
-    private void writeClauseLine(BufferedWriter bw, String clause) throws IOException {
-        writeLine(bw, clause + " 0");
     }
 }
