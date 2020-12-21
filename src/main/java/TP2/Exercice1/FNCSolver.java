@@ -28,7 +28,10 @@ public class FNCSolver {
         this.fncList = fileReader.getFncList();
         this.nbTermes = fileReader.getNbTermes();
         valueOfTerms = fileReader.getValueOfTerms();
+        long beginTime =  System.nanoTime();
         System.out.println("\nLa FNC est " + isSat());
+        long endTime =  System.nanoTime();
+        System.out.println("Temps de traitement : " + (float)(endTime - beginTime)/1000000 + "ms");
     }
 
     /**
