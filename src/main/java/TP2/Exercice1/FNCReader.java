@@ -32,7 +32,7 @@ public class FNCReader {
      */
     public void ReadFile () {
         try {
-            File myObj = new File("src\\main\\java\\TP2\\Exercice1\\"+data);
+            File myObj = new File("src\\main\\java\\TP2\\"+data);
             scanner = new Scanner(myObj);
 
             fileParams();
@@ -132,7 +132,7 @@ public class FNCReader {
 
         // Lecture du fichier
 
-        File myObj = new File("src\\main\\java\\TP2\\Exercice1\\"+input);
+        File myObj = new File("src\\main\\java\\TP2\\"+input);
         Scanner scanner = new Scanner(myObj);
         String data = scanner.nextLine();
 

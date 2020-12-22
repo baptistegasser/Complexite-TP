@@ -68,6 +68,6 @@ public class FNCSolver {
 
 
     public static void main(String[] args)  {
-        FNCSolver.solve("data.cnf", "input.txt");
+        FNCSolver.solve("Exercice1\\data.cnf", "Exercice1\\input.txt");
     }
 }
