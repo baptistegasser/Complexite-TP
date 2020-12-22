@@ -10,6 +10,7 @@ public class FNCReader {
     private Scanner scanner;
     private String data;
     private String input;
+    private boolean verbose;
     int nbClauses = 0;
     int nbTermes = 0;
     ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
@@ -20,9 +21,10 @@ public class FNCReader {
      * @param data le fichier contenant la CNF
      * @param input le fichier contenant la valeur des termes
      */
-    public FNCReader(String data, String input) {
+    public FNCReader(String data, String input, boolean verbose) {
         this.data = data;
         this.input = input;
+        this.verbose = verbose;
         fncList = new ArrayList<>();
         valueOfTerms  = new ArrayList<>();
     }
@@ -66,8 +68,10 @@ public class FNCReader {
                     System.out.println("\nFichier CNF Valide trouvé");
                     nbTermes = Integer.parseInt(params[2]);
                     nbClauses = Integer.parseInt(params[3]);
-                    System.out.println("Nombre de termes : " + nbTermes);
-                    System.out.println("Nombre de clauses : " + nbClauses + "\n");
+                    if(verbose) {
+                        System.out.println("Nombre de termes : " + nbTermes);
+                        System.out.println("Nombre de clauses : " + nbClauses + "\n");
+                    }
                 }
             }
         }
@@ -108,10 +112,13 @@ public class FNCReader {
                 i++;
             }
 
-            System.out.println("Liste des clauses : ");
-            for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
-                System.out.println(list);
+            if(verbose) {
+                System.out.println("Liste des clauses : ");
+                for (ArrayList<Pair<Integer, Boolean>> list: fncList) {
+                    System.out.println(list);
+                }
             }
+
 
         } catch (UnsupportedOperationException e) {
             System.out.println("Un problème est survenu lors de la construction de la liste de clauses");
@@ -159,12 +166,13 @@ public class FNCReader {
 
 
         // Affichage des valeurs
-        System.out.println("\nValeur des clauses : ");
-        for (int i = 0; i < nbTermes; i++) {
-            System.out.println("x" + (i+1) + " : " + valueOfTerms.get(i));
+        if(verbose) {
+            System.out.println("\nValeur des clauses : ");
+            for (int i = 0; i < nbTermes; i++) {
+                System.out.println("x" + (i+1) + " : " + valueOfTerms.get(i));
+            }
         }
         scanner.close();
-
     }
 
     public ArrayList<ArrayList<Pair<Integer, Boolean>>> getFncList() {

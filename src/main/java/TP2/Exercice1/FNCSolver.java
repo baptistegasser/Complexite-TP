@@ -23,7 +23,7 @@ public class FNCSolver {
      * Méthode génerale permettant de traiter une formule FNC : lecture de fichier et résolution
      */
     public static boolean solve (String CNF, String input) {
-        FNCReader fileReader = new FNCReader(CNF, input);
+        FNCReader fileReader = new FNCReader(CNF, input, false);
         fileReader.ReadFile();
         fncList = fileReader.getFncList();
         nbTermes = fileReader.getNbTermes();
