@@ -98,7 +98,8 @@ public class FNCReader {
                     // Si le terme est faux
                     if (str.contains("-")) {
                         currentBool = Boolean.FALSE;
-                        value = Integer.parseInt(String.valueOf(str.charAt(1)));
+                        str = str.replace("-", "");
+                        value = Integer.parseInt(String.valueOf(str));
                     } else value = Integer.parseInt(str);
                     if(value > nbTermes ) throw new UnsupportedOperationException("Valeur du terme trop élevé");
                     // On l'ajoute à la liste de la clause courrante
@@ -115,6 +116,7 @@ public class FNCReader {
         } catch (UnsupportedOperationException e) {
             System.out.println("Un problème est survenu lors de la construction de la liste de clauses");
             e.printStackTrace();
+            System.exit(0);
         }
     }
 
@@ -141,7 +143,7 @@ public class FNCReader {
                 // Si le terme contient un "-", on passe de TRUE à FALSE
                 if (termsValue[i].contains("-")) {
                     // Si le chiffre donné est faux
-                    if (Integer.parseInt(String.valueOf(termsValue[i].charAt(1))) != (i + 1) || termsValue[i].length() > 2) throw new UnsupportedOperationException("Valeur de l'indice éronnée");
+                   // if (Integer.parseInt(String.valueOf(termsValue[i].charAt(1))) != (i + 1) || termsValue[i].length() > 2) throw new UnsupportedOperationException("Valeur de l'indice éronnée");
                     valueOfTerms.set(i, Boolean.FALSE);
                     continue;
                 }
@@ -154,6 +156,7 @@ public class FNCReader {
             e.printStackTrace();
             System.exit(0);
         }
+
 
         // Affichage des valeurs
         System.out.println("\nValeur des clauses : ");
