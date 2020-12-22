@@ -7,26 +7,26 @@ import java.util.ArrayList;
  */
 public class FNCSolver {
 
-    int nbTermes;
+    static int nbTermes;
 
     /**
      * Liste des clauses, qui contiennent des Pair<numTerme,valeur>
      */
-    ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
+    static ArrayList<ArrayList<Pair<Integer, Boolean>>> fncList;
 
     /**
      * Valeur des termes passé en paramètre dans le .txt
      */
-    ArrayList<Boolean> valueOfTerms;
+    static ArrayList<Boolean> valueOfTerms;
 
     /**
      * Méthode génerale permettant de traiter une formule FNC : lecture de fichier et résolution
      */
-    public void solve () {
-        FNCReader fileReader = new FNCReader("data.cnf", "input.txt");
+    public static void solve (String CNF, String input) {
+        FNCReader fileReader = new FNCReader(CNF, input);
         fileReader.ReadFile();
-        this.fncList = fileReader.getFncList();
-        this.nbTermes = fileReader.getNbTermes();
+        fncList = fileReader.getFncList();
+        nbTermes = fileReader.getNbTermes();
         valueOfTerms = fileReader.getValueOfTerms();
         long beginTime =  System.nanoTime();
         System.out.println("\nLa FNC est " + isSat());
@@ -37,7 +37,7 @@ public class FNCSolver {
     /**
      * Vérifie si la FNC est SAT avec les listes de la classe.
      */
-    public boolean isSat () {
+    public static boolean isSat () {
         // Pour chaque clause
         for (ArrayList<Pair<Integer, Boolean>> currentList: fncList) {
             // On vérifie si au moins une valeur est à vrai
@@ -64,8 +64,8 @@ public class FNCSolver {
         return true;
     }
 
+
     public static void main(String[] args)  {
-        FNCSolver fncSolver = new FNCSolver();
-        fncSolver.solve();
+        FNCSolver.solve("data.cnf", "input.txt");
     }
 }
