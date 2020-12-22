@@ -1,5 +1,6 @@
 package TP2.Exercice2;
 
+import TP2.Exercice1.FNCSolver;
 import TP2.minisat.MiniSat;
 import TP2.minisat.Util;
 
@@ -16,6 +17,9 @@ public class GraphToSAT {
     String source = "src/main/java/TP2/Exercice2/formule.txt";
     Path fichier = Paths.get(source);
 
+    String inputSource = "src/main/java/TP2/Exercice2/input.txt";
+    Path inputFichier = Paths.get(inputSource);
+
     public GraphToSAT() throws IOException {
     }
 
@@ -26,7 +30,7 @@ public class GraphToSAT {
      * @param k the desired empty zone size
      * @throws IOException
      */
-    public void resolution(Graph graph, int k) throws IOException {
+    public void resolutionByMiniSat(Graph graph, int k) throws IOException {
         this.reduction(graph,k);
 
         File file = new File(source);
@@ -35,6 +39,56 @@ public class GraphToSAT {
 
         if (result) System.out.println("Pour k = "+k+", la solution est satisfiable \n");
         else System.out.println("Pour k = "+k+", la solution est insatisfiable \n");
+    }
+
+    /**
+     * Resolution by brute force the 3-Sat problem
+     *
+     * @param graph the graph
+     * @param k the desired empty zone size
+     * @throws IOException
+     */
+    public void resolutionBruteForce(Graph graph, int k) throws IOException {
+        this.reduction(graph,k);
+
+        int nbVertices = graph.getMatrice().length;
+
+         if (writeInput(-1, k, nbVertices, new StringBuilder())) {
+             System.out.println("Pour k="+k+", la solution est satisfiable \n");
+         } else System.out.println("Pour k="+k+", la solution est insatisfiable \n");
+    }
+
+    /**
+     * Test for all combination of value
+     *
+     * @param x the current index
+     * @param k the desired empty zone size
+     * @param nbVertices number of vertices
+     * @param currentBuilder string builder
+     * @throws IOException
+     */
+    public boolean writeInput(int x, int k, int nbVertices, StringBuilder currentBuilder) throws IOException {
+        int i = x+1;
+        StringBuilder nextBuilder = new StringBuilder(currentBuilder);
+
+        if (i <= nbVertices) {
+            if (i == nbVertices) {
+                Files.write(inputFichier, Collections.singleton(nextBuilder.toString()));
+                return FNCSolver.solve("Exercice2\\formule.txt", "Exercice2\\input.txt");
+            } else if (k > 0) {
+                int nbVal = k - 1;
+                nextBuilder.append(i + 1).append(" ");
+                if (writeInput(i, nbVal, nbVertices, nextBuilder)) return true;
+
+                StringBuilder nextNegativeBuilder = new StringBuilder(currentBuilder);
+                nextNegativeBuilder.append("-").append(i + 1).append(" ");
+                return writeInput(i, nbVal + 1, nbVertices, nextNegativeBuilder);
+            } else {
+                nextBuilder.append("-").append(i + 1).append(" ");
+                return writeInput(i, k, nbVertices, nextBuilder);
+            }
+        }
+        return false;
     }
 
     /**

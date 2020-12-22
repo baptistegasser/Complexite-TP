@@ -4,26 +4,27 @@ import TP2.minisat.MiniSat;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        Graph graph = new Graph(MatriceTest.matrice2);
+        Graph graph = new Graph(MatriceTest.matrice3);
 
         GraphToSAT resolver = new GraphToSAT();
 
-        resolver.resolution(graph, 4);
+        long start1 = System.nanoTime();
 
-        resolver.resolution(graph, 1);
+        resolver.resolutionByMiniSat(graph, 4);
 
-        resolver.resolution(graph, 5);
+        long end1 = System.nanoTime();
 
-        String testSource = "src/main/resources/test.sat";
-        File file = new File(testSource);
+        System.out.println("Time for resolution with MiniSat : "+  (float)(end1-start1)/1_000_000+"ms");
 
-        boolean res = MiniSat.run(file);
+        long start2 = System.nanoTime();
 
-        if (res) System.out.println("Test Sat");
-        else System.out.println("test Insat");
+        resolver.resolutionBruteForce(graph, 4);
+
+        long end2 = System.nanoTime();
+
+        System.out.println("Time for resolution with Brute Force : "+  (float)(end2-start2)/1_000_000+"ms");
     }
 }
