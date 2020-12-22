@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
@@ -29,13 +26,15 @@ public class Main {
     /**
      * Max number of cased randomly filled by {@link #randomGrid(int)}.
      */
-    private final static double RANDOM_PERCENT = 50;
+    private static int RANDOM_PERCENT = 50;
 
     public static void main(String[] args) throws Exception {
         ArrayList<String> argsList = new ArrayList<>(Arrays.asList(args));
 
         if (argsList.contains("--example")) {
             example();
+        } else if (argsList.contains("--test")) {
+            test();
         } else if (argsList.contains("--help")) {
             usage();
         } else if (args.length >= 1) {
@@ -253,20 +252,23 @@ public class Main {
      * Display usage and quit.
      */
     private static void usage() {
-        System.out.println("Usage: java Main n [sudoku grid] [path] [options]");
+        System.out.println("Usage: java Main n [sudoku_grid] [path] [options]");
         System.out.println("Convert a Sudoku problem of size n to a SAT problem.");
         System.out.println();
         System.out.println("Arguments:");
-        System.out.println("  n            the size of the sudoku grid.");
-        System.out.print("  sudoku grid  the sudoku grid to convert to sat problem.");
-        System.out.println("               the format is: [1,0,0,1,4,...,2], space should be avoided but are tolerated.");
-        System.out.println("  path         the path to use to store the sat problem.");
+        System.out.println("  n             the size of the sudoku grid.");
+        System.out.println("  sudoku_grid   the sudoku grid to convert to sat problems.");
+        System.out.println("                The format is: [1,0,0,1,4,...,2], space should be avoided but are tolerated, use quotes to protect space..");
+        System.out.println("                If no grid is given a random grid will be generated.");
+        System.out.println("  path          the path to use to store the sat problem.");
+        System.out.println("                Warning: case sensitive path (space, etc) -> use quotes.");
+        System.out.println("                If no path is given, output will be written to standard output and MiniSAT will not be run.");
         System.out.println();
-        System.out.println("Mandatory arguments to long options are mandatory for short options too.\n");
+        System.out.println("Options:");
         System.out.println("  --help        display this help and exit.");
         System.out.println("  --examples    display an example and exit.");
-        System.out.print("  --write-only  only write the sat file and leave.");
-        System.out.println("                This option require the wanted path to be set.");
+        System.out.println("  --test        run test, show results and exit (warning, might be heavy on computer).");
+        System.out.println("  --write-only  only write/print the SAT clauses and leave.");
 
         System.exit(0);
     }
@@ -320,6 +322,62 @@ public class Main {
 
         System.out.println("###################################\n");
         main(new String[]{String.valueOf(n), gridToString(invalid_3), tmpFile.getAbsolutePath()});
+
+        System.exit(0);
+    }
+
+    /**
+     * Run tests and exit.
+     * Run with --test argument
+     */
+    private static void test() throws Exception {
+        int iterations = 50;
+        int[] sizes = new int[] {2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] percentages = new int[] {15, 25, 50, 75};
+
+        File tmpFile = Util.CreateTmpFile();
+
+        for (int n : sizes) {
+            if (n >= 7) {
+                iterations = 20;
+            }
+
+            for (int percent : percentages) {
+                RANDOM_PERCENT = percent;
+                int [][] grid = randomGrid(n);
+
+                long min = Long.MAX_VALUE;
+                long max = Long.MIN_VALUE;
+                long totalTime = 0;
+
+                // First not measured run to get satisfiability
+                new SudokuToSAT(n, grid).toSAT(tmpFile);
+                boolean satisfiable = MiniSat.run(tmpFile);
+
+                long start, elapsed;
+                for (int i = 0; i < iterations; i++) {
+                    start = System.nanoTime();
+                    new SudokuToSAT(n, grid).toSAT(tmpFile);
+                    MiniSat.run(tmpFile);
+                    elapsed = System.nanoTime() - start;
+
+                    totalTime += elapsed;
+                    if (min > elapsed) min = elapsed;
+                    if (max < elapsed) max = elapsed;
+                }
+
+                double avgTime = (totalTime*1.0)/iterations;
+
+                System.out.printf("grid_size: %d; rnd_percent: %d; min: %d; max: %d; avg: %f; satisfiable: %s%n",
+                        n,
+                        percent,
+                        min/1_000_000,
+                        max/1_000_000,
+                        avgTime/1_000_000,
+                        satisfiable ? "yes" : "no"
+                );
+            }
+        }
 
         System.exit(0);
     }
