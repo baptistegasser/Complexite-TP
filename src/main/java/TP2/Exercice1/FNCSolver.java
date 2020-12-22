@@ -22,16 +22,18 @@ public class FNCSolver {
     /**
      * Méthode génerale permettant de traiter une formule FNC : lecture de fichier et résolution
      */
-    public static void solve (String CNF, String input) {
+    public static boolean solve (String CNF, String input) {
         FNCReader fileReader = new FNCReader(CNF, input);
         fileReader.ReadFile();
         fncList = fileReader.getFncList();
         nbTermes = fileReader.getNbTermes();
         valueOfTerms = fileReader.getValueOfTerms();
         long beginTime =  System.nanoTime();
-        System.out.println("\nLa FNC est " + isSat());
+        boolean isSat = isSat();
+        System.out.println("\nLa FNC est " + isSat);
         long endTime =  System.nanoTime();
         System.out.println("Temps de traitement : " + (float)(endTime - beginTime)/1000000 + "ms");
+        return isSat;
     }
 
     /**
