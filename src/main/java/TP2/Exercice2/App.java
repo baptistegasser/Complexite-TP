@@ -12,7 +12,11 @@ public class App {
 
         GraphToSAT resolver = new GraphToSAT();
 
-        //resolver.resolution(graph);
+        resolver.resolution(graph, 4);
+
+        resolver.resolution(graph, 1);
+
+        resolver.resolution(graph, 5);
 
         String testSource = "src/main/resources/test.sat";
         File file = new File(testSource);
