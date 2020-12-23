@@ -12,7 +12,7 @@ public class App {
         int[][] matricesTest = matrices;
 
 
-
+        // Create random matrices
         for (int i = 0; i < nbVertices; i++) {
             for (int j = 0; j < nbVertices; j++) {
                 int n = (int)(Math.random() * 100);

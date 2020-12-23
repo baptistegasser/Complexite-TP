@@ -2,9 +2,7 @@ package TP2.Exercice2;
 
 import TP2.Exercice1.FNCSolver;
 import TP2.minisat.MiniSat;
-import TP2.minisat.Util;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -132,7 +130,7 @@ public class GraphToSAT {
             nextBuilder.append(i+1).append(" ");
             // If clause size is reached
             if (clauseSize > 1)
-                recursion(i,clauseSize, nbVertices, nextBuilder, lines);
+                writeNextValue(i,clauseSize, nbVertices, nextBuilder, lines);
             else {
                 nextBuilder.append("0");
                 lines.add(nextBuilder.toString());
@@ -151,7 +149,7 @@ public class GraphToSAT {
      * @param currentBuilder The string builder
      * @param lines The list of clause
      */
-    public void recursion(int x, int clauseSize, int nbVertices, StringBuilder currentBuilder, ArrayList<String> lines) {
+    public void writeNextValue(int x, int clauseSize, int nbVertices, StringBuilder currentBuilder, ArrayList<String> lines) {
         clauseSize -= 1;
 
         for (int i = x+1; i < nbVertices ; i++) {
@@ -161,7 +159,7 @@ public class GraphToSAT {
             nextBuilder.append(i + 1).append(" ");
             // If clause size is reached
             if (clauseSize > 1)
-                recursion(i,clauseSize, nbVertices,nextBuilder, lines);
+                writeNextValue(i,clauseSize, nbVertices,nextBuilder, lines);
             else {
                 nextBuilder.append("0");
                 lines.add(nextBuilder.toString());
