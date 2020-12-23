@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        int nbVertices = 15;
+        int nbVertices = 10;
         int edgePercentage = 20;
         int[][] matrices = new int[nbVertices][nbVertices];
 
