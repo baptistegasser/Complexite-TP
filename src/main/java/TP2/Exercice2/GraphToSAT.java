@@ -80,9 +80,12 @@ public class GraphToSAT {
                 nextBuilder.append(i + 1).append(" ");
                 if (writeInput(i, nbVal, nbVertices, nextBuilder)) return true;
 
-                StringBuilder nextNegativeBuilder = new StringBuilder(currentBuilder);
-                nextNegativeBuilder.append("-").append(i + 1).append(" ");
-                return writeInput(i, nbVal + 1, nbVertices, nextNegativeBuilder);
+                // Test with negative only if it's worth it
+                if ((nbVertices-(i+1)) > nbVal) {
+                    StringBuilder nextNegativeBuilder = new StringBuilder(currentBuilder);
+                    nextNegativeBuilder.append("-").append(i + 1).append(" ");
+                    return writeInput(i, nbVal + 1, nbVertices, nextNegativeBuilder);
+                }
             } else {
                 nextBuilder.append("-").append(i + 1).append(" ");
                 return writeInput(i, k, nbVertices, nextBuilder);

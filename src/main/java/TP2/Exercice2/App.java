@@ -5,9 +5,11 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        int nbVertices = 10;
+        int nbVertices = 15;
         int edgePercentage = 20;
         int[][] matrices = new int[nbVertices][nbVertices];
+
+        int[][] matricesTest = matrices;
 
 
 
@@ -20,49 +22,16 @@ public class App {
             }
         }
 
-        Graph graph = new Graph(matrices);
+        Graph graph = new Graph(matricesTest);
 
         GraphToSAT resolver = new GraphToSAT();
 
-        int k = 1;
+        int k = 0;
 
-        compareTime(graph, resolver, k);
-
-        k = 2;
-
-        compareTime(graph, resolver, k);
-
-        k = 3;
-
-        compareTime(graph, resolver, k);
-
-        k = 4;
-
-        compareTime(graph, resolver, k);
-
-        k = 5;
-
-        compareTime(graph, resolver, k);
-
-        k = 6;
-
-        compareTime(graph, resolver, k);
-
-        k = 7;
-
-        compareTime(graph, resolver, k);
-
-        k = 8;
-
-        compareTime(graph, resolver, k);
-
-        k = 9;
-
-        compareTime(graph, resolver, k);
-
-        k = 10;
-
-        compareTime(graph, resolver, k);
+        for (int i = 0; i< matricesTest.length; i++) {
+            k = i+1;
+            compareTime(graph, resolver, k);
+        }
     }
 
     private static void compareTime(Graph graph, GraphToSAT resolver, int k) throws IOException {
