@@ -65,7 +65,7 @@ public class FNCReader {
             String [] params = data.split(" ");
             if(params[0].equals("p") || params[1].equals("cnf") ) {
                 if(Integer.parseInt(params[2]) > 0 && Integer.parseInt(params[3]) > 0) {
-                    System.out.println("\nFichier CNF Valide trouvé");
+                    if (verbose) System.out.println("\nFichier CNF Valide trouvé");
                     nbTermes = Integer.parseInt(params[2]);
                     nbClauses = Integer.parseInt(params[3]);
                     if(verbose) {

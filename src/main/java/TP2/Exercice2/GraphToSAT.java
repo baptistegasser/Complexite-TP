@@ -37,8 +37,8 @@ public class GraphToSAT {
 
         boolean result = MiniSat.run(file);
 
-        if (result) System.out.println("Pour k = "+k+", la solution est satisfiable \n");
-        else System.out.println("Pour k = "+k+", la solution est insatisfiable \n");
+        if (result) System.out.println("Pour k = "+k+", avec MiniSat, la solution est satisfiable \n");
+        else System.out.println("Pour k = "+k+", avec MiniSat, la solution est insatisfiable \n");
     }
 
     /**
@@ -54,8 +54,8 @@ public class GraphToSAT {
         int nbVertices = graph.getMatrice().length;
 
          if (writeInput(-1, k, nbVertices, new StringBuilder())) {
-             System.out.println("Pour k="+k+", la solution est satisfiable \n");
-         } else System.out.println("Pour k="+k+", la solution est insatisfiable \n");
+             System.out.println("Pour k="+k+", avec la methode brut force, la solution est satisfiable \n");
+         } else System.out.println("Pour k="+k+", avec la methode brut force, la solution est insatisfiable \n");
     }
 
     /**
@@ -74,7 +74,7 @@ public class GraphToSAT {
         if (i <= nbVertices) {
             if (i == nbVertices) {
                 Files.write(inputFichier, Collections.singleton(nextBuilder.toString()));
-                return FNCSolver.solve("Exercice2\\formule.txt", "Exercice2\\input.txt");
+                return FNCSolver.solve("Exercice2\\formule.txt", "Exercice2\\input.txt", false);
             } else if (k > 0) {
                 int nbVal = k - 1;
                 nextBuilder.append(i + 1).append(" ");

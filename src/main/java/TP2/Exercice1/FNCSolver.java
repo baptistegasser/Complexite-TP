@@ -22,17 +22,17 @@ public class FNCSolver {
     /**
      * Méthode génerale permettant de traiter une formule FNC : lecture de fichier et résolution
      */
-    public static boolean solve (String CNF, String input) {
-        FNCReader fileReader = new FNCReader(CNF, input, false);
+    public static boolean solve (String CNF, String input, boolean verbose) {
+        FNCReader fileReader = new FNCReader(CNF, input, verbose);
         fileReader.ReadFile();
         fncList = fileReader.getFncList();
         nbTermes = fileReader.getNbTermes();
         valueOfTerms = fileReader.getValueOfTerms();
         long beginTime =  System.nanoTime();
         boolean isSat = isSat();
-        System.out.println("\nLa FNC est " + isSat);
+        if (verbose) System.out.println("\nLa FNC est " + isSat);
         long endTime =  System.nanoTime();
-        System.out.println("Temps de traitement : " + (float)(endTime - beginTime)/1000000 + "ms");
+        if (verbose) System.out.println("Temps de traitement : " + (float)(endTime - beginTime)/1000000 + "ms");
         return isSat;
     }
 
@@ -68,6 +68,6 @@ public class FNCSolver {
 
 
     public static void main(String[] args)  {
-        FNCSolver.solve("Exercice1\\data.cnf", "Exercice1\\input.txt");
+        FNCSolver.solve("Exercice1\\data.cnf", "Exercice1\\input.txt", false);
     }
 }
